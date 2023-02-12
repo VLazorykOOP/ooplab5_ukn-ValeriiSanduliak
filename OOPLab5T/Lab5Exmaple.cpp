@@ -424,7 +424,7 @@ namespace Exp2 {
 			};
 		}
 
-		friend ostream& operator<<(ostream& os, Person& a);
+			friend ostream& operator<<(ostream& os, Person& a);
 		friend istream& operator>>(istream& os, Person& a);
 	};
 
