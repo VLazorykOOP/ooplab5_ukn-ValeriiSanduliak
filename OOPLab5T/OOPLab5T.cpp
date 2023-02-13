@@ -13,24 +13,25 @@ using namespace std;
 int main()
 {
     std::cout << " Lab #5  !\n";
-    Car car(10,"BMW",10);
-    //char ch = '5';
-    //do {
-    //    cout << "Chose task 1-3:" << endl;
-    //    cout << " >>> ";
-    //    ch = cin.get();
+  
 
-    //    cin.get();
+    char ch = '5';
+    do {
+        cout << "Chose task 1-3:" << endl;
+        cout << " >>> ";
+        ch = cin.get();
 
-    //    switch (ch) {
-    //    case '1': Task1();  break;
-    //   // case '2': task2();  break;
-    //    //case '3': task3();  break;
-    //    case '4': return 0;
-    //    }
-    //    cout << " Press any key and enter\n";
-    //    ch = cin.get();
-    //} while (ch != '5');
+        cin.get();
+
+      switch (ch) {
+        case '1': Task1();  break;
+        case '2': Task2(); break;
+        case '3':  break;
+       case '4': return 0;
+       }
+        cout << " Press any key and enter\n";
+        ch = cin.get();
+    } while (ch != '5');
 
     return 0;
 
