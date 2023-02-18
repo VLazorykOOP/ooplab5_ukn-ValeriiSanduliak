@@ -9,6 +9,7 @@ using namespace std;
 //#include "Lab5Exmaple.h"
 #include"Task1.h"
 #include "Task2.h"
+#include "Task3.h"
 
 int main()
 {
@@ -17,7 +18,7 @@ int main()
 
     char ch = '5';
     do {
-        cout << "Chose task 1-3:" << endl;
+        cout << "Chose task 1-3 (4-exit):" << endl;
         cout << " >>> ";
         ch = cin.get();
 
@@ -25,9 +26,9 @@ int main()
 
       switch (ch) {
         case '1': Task1();  break;
-        case '2': Task2(); break;
-        case '3':  break;
-       case '4': return 0;
+        case '2': Task2();  break;
+        case '3': Task3();  break;
+        case '4': return 0;
        }
         cout << " Press any key and enter\n";
         ch = cin.get();

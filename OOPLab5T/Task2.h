@@ -56,6 +56,7 @@ public:
 	}
 	~Car() {
 		cout << "Destructor car";
+
 	}
 	int getCntWheels() {
 		return cnt_wheels;
@@ -97,7 +98,7 @@ public:
 		cout << "Defaul Truck costructor";
 	}
 	Truck(int cnt_wheels, string mark, long long price, long long cary,double radius) :Car(cnt_wheels, mark, price,radius), Carrying_capacity(cary) {
-		cout << "Constructor 4 value";
+		cout << "Constructor 5 value";
 	}
 	~Truck() {
 		cout << "Destructor truck";

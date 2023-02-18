@@ -32,6 +32,7 @@ istream& operator>>(istream& is, Pair& a) {
 	else { 
 		cout << "Incorrect value!!!!!!!"<<endl;
 	}
+	return is;
 }
 ostream& operator<<(ostream& os, Pair& a) {
 	os << "p1:" << a.p1 << endl;
