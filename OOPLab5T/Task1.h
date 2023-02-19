@@ -148,4 +148,5 @@ void Task1() {
 	{
 		cout << "first == second" << endl;
 	}
+	cout << "----------------\n";
 }
