@@ -13,9 +13,7 @@ using namespace std;
 
 int main()
 {
-    std::cout << " Lab #5  !\n";
-  
-
+    cout << " Lab #5  !\n";
     char ch = '5';
     do {
         cout << "Chose task 1-3 (4-exit):" << endl;
@@ -33,7 +31,6 @@ int main()
         cout << " Press any key and enter\n";
         ch = cin.get();
     } while (ch != '5');
-
     return 0;
 
 }

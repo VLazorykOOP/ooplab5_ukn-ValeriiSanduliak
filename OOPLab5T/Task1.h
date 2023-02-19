@@ -6,96 +6,62 @@ class Pair {
 public:
 	int p1;
 	int p2;
-	Pair() {
-		p1 = 0;
-		p2 = 0;
-		//cout << "Constructor Pair";
-	};
-	Pair(int a, int b) {
-		p1 = a;
-		p2 = b;
+	Pair(): p1(0),p2(0){}
+	Pair(int first,int second):p1(first),p2(second){}
+	~Pair()
+	{
+		cout << "Dectructor Pair\n";
 	}
-	~Pair() { 
-		//cout << "Destructor Pair"; 
-	};
-	friend istream& operator>>(istream& os, Pair& a);
-	friend ostream& operator<<(ostream& os, Pair& a);
+	void Input() 
+	{
+		cout << "Input oldest_part(p1):";
+		cin >> p1;
+		while(p1<0||p1>9)
+		{
+			cout << "Bad value p1 :" << p1 << endl;
+			cout << "Input oldest part(0<p1<9):";
+			cin >> p1;
+		}
+		cout << "Input youngest_part(p2):";
+		cin >> p2;
+	}
+	void Output()
+	{
+		cout << "Output p1 p2: " << p1 << p2 << endl;
+	}
+	bool operator>(const Pair& s) const {
+		return (p1 > s.p1) || (p1 == s.p1 && p2 > s.p2);
+	}
+	bool operator<(const Pair& s) const {
+		return (p1 < s.p1) || (p1 == s.p1 && p2 < s.p2);
+	}
+	bool operator==(const Pair& s) const {
+		return p1 == s.p1 && p2 == s.p2;
+	}
 };
-istream& operator>>(istream& is, Pair& a) {
-	cout << "Input p1: ";
-	is >> a.p1;
-	cout << "Input p2: ";
-	is >> a.p2;
-	if (a.p1 <= 9 && a.p2 <= 9) {
-		return is;
-	}
-	else { 
-		cout << "Incorrect value!!!!!!!"<<endl;
-	}
-	return is;
-}
-ostream& operator<<(ostream& os, Pair& a) {
-	os << "p1:" << a.p1 << endl;
-	os << "p2:" << a.p2 << endl;
-	return os;
-}
-class Fraction : protected Pair {
-	int whole_part;    // union oldest part and yongest part
-	int small_part;    // .etc
+class Fraction :public Pair {
+private:
+	int whole;
+	int small;
 public:
-	Fraction() {
-		whole_part = 0;
-		small_part = 0;
-		//cout << "Constructor Fraction";
-	};
-	~Fraction() {
-		//cout << "Destructor Fraction";
-	};
-	
-	friend istream& operator>>(istream& os, Fraction& a);
-	friend ostream& operator<<(ostream& os, Fraction& a);
-	void Сomparison() {
-		Pair first, second;
-		Fraction _first, _second;
-		cout << "Input oldest part :" << endl; cin >> first;
-		cout << "Input younest part :" << endl; cin >> second;
-		cout << "Input small part1 :"; cin >> _first;
-		cout << "Input small part2 :"; cin >> _second;
-		cout << first.p1 << second.p1 << "." << _first.small_part << endl;
-		cout << first.p2 << second.p2 << "." << _second.small_part<< endl;
-
-		if (first.p1 > first.p2) {
-			whole_part = concat(first.p1, second.p1);
-			cout << "first more then second: " << whole_part << "." << _first.small_part << endl;
-		}
-		else if (first.p1 < first.p2) {
-			whole_part = concat(first.p2, second.p2);
-			cout << "first less then second: " << whole_part << "." << _first.small_part << endl;
-		};
-		if (first.p1 == first.p2) {
-			if (second.p1 > second.p2) {
-				whole_part = concat(first.p1, second.p1);
-				cout << "first more then second: " << whole_part << "." << _first.small_part << endl;
-			}
-			else if (second.p1 < second.p2) {
-				whole_part = concat(first.p2, second.p2);
-				cout << "first less then second: " << whole_part << "." << _first.small_part << endl;
-			}
-			else if (second.p1 == second.p2) {
-				if (_first.small_part > _second.small_part) {
-					whole_part = concat(first.p2, second.p2);
-					cout << "first more then second: " << whole_part << "." << _first.small_part << endl;
-				}
-				else if (_first.small_part < _second.small_part) {
-					whole_part = concat(first.p2, second.p2);
-					cout << "first less then second: " << whole_part << "." << _second.small_part << endl;
-				}
-				else if (_first.small_part == _second.small_part) {
-					cout << "First == second ";
-				}
-			}
-		}
-	};
+	Fraction():Pair(),whole(0),small(0){}
+	Fraction(const Pair& s, int small_p) :whole(concat(s.p1,s.p2)), small(small_p){}
+	~Fraction()
+	{
+		cout << "Destructor Fraction\n";
+	}
+	void Input() 
+	{
+		Pair::Input();
+		whole = concat(p1, p2);
+		cout << "whole_part: " << whole << endl;
+		cout << "Input small part: ";
+		cin >> small;
+	}
+	void Output()
+	{
+		cout << "The number : " << whole << "." << small << endl;
+	}
 	int concat(int a, int b)
 	{
 		string s1 = to_string(a);
@@ -104,19 +70,82 @@ public:
 		int c = stoi(s);
 		return c;
 	}
-};
-istream& operator>>(istream& is, Fraction& a) {
-	is >> a.small_part;
-	return is;
-}
-ostream& operator<<(ostream& os, Fraction& a) {
-	//os << "Whole part" << a.whole_part;
-	os << "small_part: " << a.small_part << endl;
-	return os;
-}
+	bool operator>(const Fraction& f) const {
+		return (whole > f.whole) || (whole == f.whole && small > f.small);
+    }
+    bool operator<(const Fraction& f) const {
+		return (whole < f.whole) || (whole == f.whole && small < f.small);
+    }
 
+    bool operator==(const Fraction& f) const {
+		return whole == f.whole && small == f.small;
+    }
+};
 void Task1() {
-	cout << "Test comparision class Pair"<<endl;
-	Fraction test;
-	test.Сomparison();
+	cout << "Test class"<<endl;
+	Pair p1(2, 4);
+	Pair p2(2, 4);
+	p1.Output();
+	p2.Output();
+	if (p1 > p2) 
+	{
+		cout << "p1 > p2" << endl;
+	}
+	else if (p1 < p2) 
+	{
+		cout << "p1 < p2" << endl;
+	}
+	else if(p1==p2)
+	{
+		cout << "p1 == p2" << endl;
+	}
+	cout << "----------------\n";
+	Fraction f1(p1, 5);
+	Fraction f2(p2, 4);
+	f1.Output();
+	f2.Output();
+	if (f1 > f2) 
+	{
+		cout << "f1 > f2" << endl;
+	}
+	else if (f1 < f2)
+	{
+		cout << "f1 < f2" << endl;
+	}
+	else if(f1==f2) 
+	{
+		cout << "f1 == f2" << endl;
+	}
+	cout << "----------------\n";
+	cout << "Test Input" << endl;
+	cout << "----------------\n";
+	Fraction first, second;
+	cout << "Input Fraction first: "<<endl;
+	first.Input();
+	cout << "----------------\n";
+	cout << "Input Fraction second: " << endl;
+	second.Input();
+	cout << "----------------\n";
+	cout << "Test Output" << endl;
+	cout << "----------------\n";
+	cout << "Output Fraction first: " << endl;
+	first.Output();
+	cout << "----------------\n";
+	cout << "Output Fraction second: " << endl;
+	second.Output();
+	cout << "----------------\n";
+	cout << "Test Comparison first and second :" << endl;
+	cout << "----------------\n";
+	if (first > second) 
+	{
+		cout << "first > second" << endl;
+	}
+	else if (first < second)
+	{
+		cout << "first < second" << endl;
+	}
+	else if (first == second)
+	{
+		cout << "first == second" << endl;
+	}
 }
